@@ -1,27 +1,117 @@
-// all menu function write here
-#include "header.h"
+#include "main.h"
+#include "menu.h"
+#include "cursor.h"
 
-void printMenu() {
-	/*
-	* TODO:
-	*		메뉴 화면 제작
-	*		(그 이외 기능 추가 X)
-	*/
-}
 
-void selectMenu() {
-	/*
-	* TODO:
-	*		<enter> 입력 받은 뒤, 커서가 어디에 위치하는지 확인
-	*		커서 위치에 대한 게임 시작 또는 종료에 대한 분기 확인
+int selectMenu() {
+	COORD menuItem[] = { {6,15},{32,15},{55,15} };
+	int x = 6, y = 15, ch;
+
+	while(1)
+	{
+
+		gotoxy(x, y);
+		printf(">");
+		ch=_getch();
+		if (ch == '\r') {
+			break;
+		}
+		if (ch == 224)
+		{
+			ch = _getch();
+			switch(ch)
+			{
+			case 77:
+				if(x==6)
+				{
+					x = 32;
+				}
+				else if(x==32)
+				{
+					x = 55;
+				}
+				break;
+			case 75:
+				if(x==32)
+				{
+					x = 6;
+				}
+				else if(x==55)
+				{
+					x = 32;
+				}
+				break;				
+
+			}
+		}
+		printf("\b ");
+	}
 	
-	*/
+	switch (x)
+	{
+	case 6:
+		return 0;
+	case 32:
+		
+	case 75:
+		return 2;
+	}
 }
-void selectLevel() {
-	/*
-	* TODO:
-	*		<enter> 입력 받은 뒤, 커서가 어디에 위치하는지 확인
-	*		커서 위치에 대한 게임 레벨 분기 확인
+int selectLevel() {
+	int level=0;
+	COORD menuItem[] = { {6,15},{32,15},{55,15} };
+	int x = 6, y = 15, ch;
 
-	*/
+	while (1)
+	{
+
+		gotoxy(x, y);
+		printf(">");
+		ch = _getch();
+		if (ch == '\r') {
+			break;
+		}
+		if (ch == 224)
+		{
+			ch = _getch();
+			switch (ch)
+			{
+			case 77:
+				if (x == 6)
+				{
+					x = 32;
+				}
+				else if (x == 32)
+				{
+					x = 55;
+				}
+				break;
+			case 75:
+				if (x == 32)
+				{
+					x = 6;
+				}
+				else if (x == 55)
+				{
+					x = 32;
+				}
+				break;
+
+			}
+		}
+		printf("\b ");
+	}
+	switch (x)
+	{
+	case 6:
+		level = 1;
+		break;
+	case 32:
+		level = 2;
+		break;
+	case 75:
+		level = 3;
+		break;
+	}
+	return level;
 }

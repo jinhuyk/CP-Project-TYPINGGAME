@@ -1,0 +1,3 @@
+
+int selectMenu();
+int selectLevel();

@@ -1,60 +1,51 @@
-#include "header.h"
+#include "main.h"
+#include "game.h"
+#include <string.h>
 // all game function write here
 
+#define MAX_SCORE 100
+
+char wordLevel1[][100] = {
+	"printf", "scanf", "overflow", "kilo", "giga", "mega", "static", "hello-world", "switch", "while", "float", "include", "return", "extern", "break", "default", "rand", "define", "download", "program", "cloud", "request", "compile", "object", "monitor", "class"
+};
+
+char wordLevel2[][100] = {
+		"register", "flash-drive", "ROTATE", "SHIFT", "memory", "process", "refactor", "argument", "parameter", "query", "gateway", "terminal", "buffering", "pipeline", "instructions", "processor", "iterator", "frame", "cache", "exception"
+};
+
+char wordLevel3[][100] = {
+	"program-counter", "operating-system", "lab-assignment", "programming-practice", "instruction-set-architectures", "parallelism", "multiflexer", "memory", "unsigned-integer", "data-segment-pointer", "pseudodirect-addressing", "base-addressing", "assembly", "pseudoinstruction", "artificial-intelligence",
+	"buffering", "flash-drive", "pipeline", "processor", "iterator"
+};
 
 
-void showGame(int level) {
-	/*
-		TODO:
-		게임 진행 함수 순차적으로 나열
-	*/
-	
-	
-}
-
-void showSenario(int level) {
-	/*
-		TODO:
-		게임 시작 전, 해당 레벨에 대한 시나리오(설명)
-
-		시나리오 텍스트 출력후
-
-		n초 후 게임 시작할 수 있게 진행.
-	*/
-}
-
-void showleftTime(int time)
-{
-	/*
-		TODO:
-		콘솔에 정해논 좌표에 시간 출력
-	*/
-}
-
-void showNowLocation(int loc)
-{
-	/*
-		TODO:
-		현재 캐릭터의 위치 출력
-	*/
-}
-void showText(int level) {
-	/*
-		TODO:
-		랜덤으로 단어 출력
-	*/
+char* makeText(int level) {
+	char* text ="";
+	switch (level) {
+	case 1:
+		text = wordLevel1[rand() % 25];
+		break;
+	case 2:
+		text = wordLevel2[rand() % 19];
+		break;
+	case 3:
+		text = wordLevel3[rand() % 20];
+		break;
+	}
+	return text;
 }
 
 char* inputText() {
+	char text[] = "";
 	/*
 		TODO:
 		단어 입력 후 입력받은 단어 반환
 	*/
-
+	return text;
 }
-int equalText(char* text) {
+int isTextEqual(char* text, char* correctText) {
 	/*
-		TODO:
+		TODO: 김석진
 		inputText() 에서 반환받은 문자열과 비교
 
 		같으면 1
@@ -62,7 +53,13 @@ int equalText(char* text) {
 
 		반환
 	*/
-
+	int result = strcmp(text, correctText);
+	if (result == 0)
+		result = 1;
+	else
+		result = 0;
+	
+	return result;
 }
 void processTurn(int eql, int level) {
 
@@ -73,9 +70,20 @@ void processTurn(int eql, int level) {
 	*/
 
 }
-int isFinish() {
+int isFinish(int score) {
+	int isFinish=0;
 	/*
-	* TODO:
+	* TODO: 
 	* 시간초과 및 게임 승패여부 변별 
+	* 
+	* time 이용하여 시간 초과 판단,
+	* 
+	* score 과 MAX_SCORE 비교하여 점수 판단,
+	* 
+	* lose : 0
+	* win : 1
+	* 
+	* isFinish를 반환
 	*/
+	return isFinish;
 }

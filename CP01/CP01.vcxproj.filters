@@ -24,12 +24,27 @@
     <ClCompile Include="game.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="console.c">
+    <ClCompile Include="cursor.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="showConsole.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header.h">
+    <ClInclude Include="main.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cursor.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="showConsole.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
