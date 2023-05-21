@@ -52,7 +52,7 @@ int selectMenu() {
 	case 6:
 		return 0;
 	case 32:
-		
+		return 1;
 	case 75:
 		return 2;
 	}

@@ -1,5 +1,5 @@
 char* makeText(int);
-char* inputText();
+void inputText(char*,int);
 int  isTextEqual(char*,char*);
 void processTurn(int, int);
 int isFinish(int);

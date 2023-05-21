@@ -6,3 +6,5 @@ void showSenario(int);
 void showleftTime(int);
 void showNowLocation(int);
 void showText(int,char*);
+void showMyText(char*);
+void showDeveloper();

@@ -5,11 +5,21 @@
 #include "showConsole.h"
 
 int main(void) {
+	int menu;
+
+
 	system("mode con: cols=82 lines=22");
 	showMenu();
-	if (selectMenu() == 0) {
+	menu = selectMenu();
+	if (menu == 0) {
 		showLevelMenu();
 		showSenario(selectLevel());
+	}
+	else if (menu == 1) {
+		return 0;
+	}
+	else if (menu == 2) {
+		showDeveloper();
 	}
 
 	return 0;

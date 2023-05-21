@@ -1,5 +1,6 @@
 #include "main.h"
 #include "game.h"
+#include "showConsole.h"
 #include <string.h>
 // all game function write here
 
@@ -18,6 +19,12 @@ char wordLevel3[][100] = {
 	"buffering", "flash-drive", "pipeline", "processor", "iterator"
 };
 
+void append(char* text, char c) {
+	char* p = text;
+	while (*p != '\0') p++;
+	*p = c;
+	*(p + 1) = '\0';
+}
 
 char* makeText(int level) {
 	char* text ="";
@@ -35,13 +42,32 @@ char* makeText(int level) {
 	return text;
 }
 
-char* inputText() {
-	char text[] = "";
-	/*
-		TODO:
-		단어 입력 후 입력받은 단어 반환
-	*/
-	return text;
+void inputText(char* text, int time) {
+	char key = 0;
+	while (1) {
+
+		if (_kbhit() != NULL)
+		{
+			key = _getch();
+			if (key == '\r') {
+				break;
+			}
+			append(text, key);
+			showMyText(text);
+		}
+		Sleep(10);
+		if (time % 100 == 0)
+		{
+			if (time / 100 < 0)
+			{
+				printf("게임 끝. ");
+				break;
+			}
+			system("cls");
+			showMyText(text);
+		}
+		time--;
+	}
 }
 int isTextEqual(char* text, char* correctText) {
 	/*
@@ -61,17 +87,54 @@ int isTextEqual(char* text, char* correctText) {
 	
 	return result;
 }
-void processTurn(int eql, int level) {
+void processTurn(int eql, int level,int time, int location) {
 
 	/*
 	*	TODO:
 	*	eql 인자를 통해 텍스트 동일 여부 판단 및, 
 	*	level에 맞는 시간 등 업데이트
+	*   location -> 계단 수
 	*/
-
+	if (eql == 1)
+	{
+		location = location + 10;
+	}
+	
 }
-int isFinish(int score) {
+
+int location2score(int level, int location){
+	/*
+	계단 수에 따라서 스코어 점수 계산
+	level 1 -> 총 100칸
+	level 2 -> 총 200칸
+	level 3 -> 총 300칸
+	*/
+	int totalLocation;
+	if (level == 1)
+	{
+		totalLocation=100;
+	}
+	else if (level == 2)
+	{
+		totalLocation = 200;
+	}
+	else if (level == 3)
+	{
+		totalLocation=300;
+	}
+	return(location * (100 / totalLocation));
+	
+}
+
+int isFinish(int score, int time) {
 	int isFinish=0;
+	if((score >= 100) || (time > 0)) // 100점 이상이면 승리 or 남은시간 0초 이상이면 승리
+	{
+		isFinish = 1;
+		return isFinish;
+	}
+	else // 100점이상 or 남은시간 0초이상 에 해당하지 않는 경우
+		return isFinish; // isFinish 가 0 반환
 	/*
 	* TODO: 
 	* 시간초과 및 게임 승패여부 변별 
@@ -85,5 +148,11 @@ int isFinish(int score) {
 	* 
 	* isFinish를 반환
 	*/
-	return isFinish;
+}
+
+int makeFinishCode() {
+ int code;
+ srand((unsigned)time(NULL));
+ code = rand() % 900 + 100; // (0부터 899까지 생성된 나머지 + 100) = 100 부터 999까지 랜덤하게 생성
+ return code;
 }
