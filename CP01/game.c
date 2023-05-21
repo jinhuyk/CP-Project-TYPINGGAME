@@ -26,6 +26,11 @@ void append(char* text, char c) {
 	*(p + 1) = '\0';
 }
 
+void init(int level, int* time, int* location) {
+	*time = 1000;
+	*location = 0;
+}
+
 char* makeText(int level) {
 	char* text ="";
 	switch (level) {
@@ -42,32 +47,37 @@ char* makeText(int level) {
 	return text;
 }
 
-void inputText(char* text, int time) {
+void inputText(char* myText,char* nowText, int* time,int* location) {
+	int t = *time;
 	char key = 0;
 	while (1) {
-
 		if (_kbhit() != NULL)
 		{
 			key = _getch();
 			if (key == '\r') {
 				break;
 			}
-			append(text, key);
-			showMyText(text);
+			append(myText, key);
+			showMyText(myText);
 		}
 		Sleep(10);
-		if (time % 100 == 0)
+		if (t % 100 == 0)
 		{
-			if (time / 100 < 0)
+			if (t/ 100 < 0)
 			{
-				printf("°ÔÀÓ ³¡. ");
 				break;
 			}
 			system("cls");
-			showMyText(text);
+			makeBox(0, 0, 80, 20);
+			showleftTime(t);
+			showText(0, nowText);
+			showNowLocation(*location);
+			showMyText(myText);
+			
 		}
-		time--;
+		t--;
 	}
+	*time = t;
 }
 int isTextEqual(char* text, char* correctText) {
 	/*
@@ -87,7 +97,7 @@ int isTextEqual(char* text, char* correctText) {
 	
 	return result;
 }
-void processTurn(int eql, int level,int time, int location) {
+void processTurn(int eql, int level,int* time, int* location) {
 
 	/*
 	*	TODO:
@@ -97,7 +107,7 @@ void processTurn(int eql, int level,int time, int location) {
 	*/
 	if (eql == 1)
 	{
-		location = location + 10;
+		*location = *location + 10;
 	}
 	
 }

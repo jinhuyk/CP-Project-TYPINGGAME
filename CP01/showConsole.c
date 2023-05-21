@@ -62,7 +62,7 @@ void showDeveloper() {
 	system("cls");
 	makeBox(0, 0, 80, 20);
 	gotoxy(30, 5);
-	typingEffect("개발자 정보", 100);
+	printf("개발자 정보");
 	gotoxy(10, 8);
 	typingEffect("컴퓨터 공학부 202210748 문진혁", 100);
 	gotoxy(10, 10);
@@ -72,7 +72,11 @@ void showDeveloper() {
 	gotoxy(10, 14);
 	typingEffect("컴퓨터 공학부 202311302 변수혁", 100);
 	gotoxy(10, 16);
-	typingEffect("KONKUK Univ. Computer Science & Engineering, C-Programming Team Project 01 Team", 100);
+	typingEffect("KONKUK Univ. Computer Science & Engineering, C-Programming Team", 100);
+	gotoxy(10, 17);
+	printf("5초 뒤 메인으로 돌아갑니다...");
+	Sleep(5000);
+
 }
 
 void showGame(int level) {
@@ -83,14 +87,15 @@ void showSenario(int level) {
 	makeBox(0, 0, 80, 20);
 	if (level == 1) {
 		gotoxy(30, 5);
-		typingEffect("1단계 공학관", 100);
+		printf("1단계 공학관");
 		gotoxy(10, 8);
-		typingEffect("1교시 시작하기 5분전에 공학관 1층에 도착했다.",100);
+		typingEffect("1교시 시작하기 5분전에 공학관 1층에 도착했다.",50);
 		gotoxy(10, 10);
-		typingEffect("늦지 않게 단어를 입력하여 계단을 올라가자",100);
+		typingEffect("늦지 않게 단어를 입력하여 계단을 올라가자",50);
 		gotoxy(10, 12);
-		typingEffect("계단을 다 올라가서 제한시간안에 출석번호를 입력하자",100);
-		gotoxy(81, 20);
+		typingEffect("계단을 다 올라가서 제한시간안에 출석번호를 입력하자",50);
+		gotoxy(10, 14);
+		printf("3초 후 시작합니다...");
 
 	}
 	else if (level == 2) {
@@ -115,20 +120,12 @@ void showSenario(int level) {
 		typingEffect("계단을 빨리 올라가서 제한시간안에 출석번호를 입력하자", 100);
 		gotoxy(81, 20);
 	}
-	/*
-		TODO:
-		게임 시작 전, 해당 레벨에 대한 시나리오(설명)
-
-		시나리오 텍스트 출력후
-
-		n초 후 게임 시작할 수 있게 진행.
-	*/
 }
 
 void showleftTime(int time)
 {	
-	gotoxy(0, 0); // 좌표 추후 수정 필요
-	printf("%d\n", time); // 시간출력
+	gotoxy(5, 2); // 좌표 추후 수정 필요
+	printf("남은 시간: %d초\n", time/100); // 시간출력
 	/*
 		TODO:
 		콘솔에 정해논 좌표에 시간 출력 
@@ -139,7 +136,7 @@ void showNowLocation(int loc)
 {
 
 		// 좌하단 언더바
-		gotoxy(20, 17);
+		gotoxy(24, 13);
 		if (loc % 2 == 1) {
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); // 하얀색
 		}
@@ -149,7 +146,7 @@ void showNowLocation(int loc)
 		printf("__________");
 
 		// 중앙 언더바
-		gotoxy(40, 13);
+		gotoxy(34, 11);
 		if (loc % 2 == 1) {
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9); // 파란색
 		}
@@ -159,7 +156,7 @@ void showNowLocation(int loc)
 		printf("__________");
 
 		// 우상단 언더바
-		gotoxy(60, 9);
+		gotoxy(44, 9);
 		if (loc % 2 == 1) {
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); // 하얀색
 		}
@@ -167,6 +164,8 @@ void showNowLocation(int loc)
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9); // 파란색
 		}
 		printf("__________");
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
 }
 
@@ -180,7 +179,6 @@ void showPerson(int e) {
 	gotoxy(23, 16);
 	printf("/ \\");
 
-	Sleep(500); // 0.5초 대기
 
 	// 사람 손 위로 올리기
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14); // 하얀색
@@ -190,7 +188,6 @@ void showPerson(int e) {
 	printf("/ | \\");
 	gotoxy(23, 16);
 	printf("/ \\");
-	Sleep(500); // 0.5초 대기
 }
 
 void showText(int level,char* text) {
@@ -199,11 +196,12 @@ void showText(int level,char* text) {
 		랜덤으로 단어 출력
 	*/
 	
-	gotoxy(34, 17);
-	printf("%s", text);
+	gotoxy(25, 4);
+	printf("제시어: %s", text);
 }
 void showMyText(char* text) {
-	gotoxy(34, 19);
+	makeBox(18, 15, 62, 17);
+	gotoxy(20, 16);
 	printf("%s", text);
 }
 

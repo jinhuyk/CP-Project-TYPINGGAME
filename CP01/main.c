@@ -6,21 +6,39 @@
 
 int main(void) {
 	int menu;
-
-
+	int level;
+	int location=0;
+	int time=0;
+	char nowText[100] ="";
+	char myText[100]="";
+	char key = 0;
 	system("mode con: cols=82 lines=22");
-	showMenu();
-	menu = selectMenu();
-	if (menu == 0) {
-		showLevelMenu();
-		showSenario(selectLevel());
-	}
-	else if (menu == 1) {
-		return 0;
-	}
-	else if (menu == 2) {
-		showDeveloper();
-	}
 
-	return 0;
+	while (1) {
+		system("cls");
+		
+		showMenu();
+		menu = selectMenu();
+		if (menu == 0) {
+			showLevelMenu();
+			showSenario(level = selectLevel());
+			init(level, &time, &location);
+			system("cls");
+			makeBox(0, 0, 80, 20);
+			strcpy_s(nowText, 100, makeText(level));
+			
+			while (1) {
+				strcpy_s(myText,100 ,"");
+				inputText(myText,nowText, &time,&location);
+				gotoxy(0, 0);
+				printf("left time: %d, text: %s", time / 100, myText);
+			}
+		}
+		else if (menu == 1) {
+			return 0;
+		}
+		else if (menu == 2) {
+			showDeveloper();
+		}
+	}
 }

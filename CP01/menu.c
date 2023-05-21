@@ -53,7 +53,7 @@ int selectMenu() {
 		return 0;
 	case 32:
 		return 1;
-	case 75:
+	case 55:
 		return 2;
 	}
 }
