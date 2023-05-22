@@ -27,7 +27,7 @@ void append(char* text, char c) {
 }
 
 void init(int level, int* time, int* location) {
-	*time = 1000;
+	*time = 100000;
 	*location = 0;
 }
 
@@ -49,6 +49,7 @@ char* makeText(int level) {
 
 void inputText(char* myText,char* nowText, int* time,int* location) {
 	int t = *time;
+	int nowTime = 500;
 	char key = 0;
 	while (1) {
 		if (_kbhit() != NULL)
@@ -58,6 +59,7 @@ void inputText(char* myText,char* nowText, int* time,int* location) {
 				break;
 			}
 			append(myText, key);
+			
 			showMyText(myText);
 		}
 		Sleep(10);
@@ -75,7 +77,12 @@ void inputText(char* myText,char* nowText, int* time,int* location) {
 			showMyText(myText);
 			
 		}
+		if (nowTime / 100 < 0) {
+			break;
+		}
+		
 		t--;
+		nowTime--;
 	}
 	*time = t;
 }
@@ -108,6 +115,9 @@ void processTurn(int eql, int level,int* time, int* location) {
 	if (eql == 1)
 	{
 		*location = *location + 10;
+	}
+	else {
+		*time = *time - 500;
 	}
 	
 }

@@ -64,13 +64,13 @@ void showDeveloper() {
 	gotoxy(30, 5);
 	printf("개발자 정보");
 	gotoxy(10, 8);
-	typingEffect("컴퓨터 공학부 202210748 문진혁", 100);
+	typingEffect("컴퓨터 공학부 202210748 문진혁", 50);
 	gotoxy(10, 10);
-	typingEffect("컴퓨터 공학부 202111256 김석진", 100);
+	typingEffect("컴퓨터 공학부 202111256 김석진", 50);
 	gotoxy(10, 12);
-	typingEffect("컴퓨터 공학부 202311262 김민규", 100);
+	typingEffect("컴퓨터 공학부 202311262 김민규", 50);
 	gotoxy(10, 14);
-	typingEffect("컴퓨터 공학부 202311302 변수혁", 100);
+	typingEffect("컴퓨터 공학부 202311302 변수혁", 50);
 	gotoxy(10, 16);
 	typingEffect("KONKUK Univ. Computer Science & Engineering, C-Programming Team", 100);
 	gotoxy(10, 17);
@@ -87,7 +87,7 @@ void showSenario(int level) {
 	makeBox(0, 0, 80, 20);
 	if (level == 1) {
 		gotoxy(30, 5);
-		printf("1단계 공학관");
+		typingEffect("1단계 공학관",70);
 		gotoxy(10, 8);
 		typingEffect("1교시 시작하기 5분전에 공학관 1층에 도착했다.",50);
 		gotoxy(10, 10);
@@ -100,26 +100,27 @@ void showSenario(int level) {
 	}
 	else if (level == 2) {
 		gotoxy(30, 5);
-		typingEffect("2단계 새천년관", 100);
+		typingEffect("2단계 새천년관", 70);
 		gotoxy(10, 8);
-		typingEffect("3교시 시작하기 5분전에 새천년관 1층에 도착했다.",100);
+		typingEffect("3교시 시작하기 5분전에 새천년관 1층에 도착했다.",50);
 		gotoxy(10, 10);
-		typingEffect("아니 엘리베이터 줄이 이렇게 길다고?",100);
+		typingEffect("아니 엘리베이터 줄이 이렇게 길다고?",50);
 		gotoxy(10, 12);
-		typingEffect("계단으로 올라가서 제한시간안에 출석번호를 입력하자",100);
+		typingEffect("계단으로 올라가서 제한시간안에 출석번호를 입력하자",50);
 		gotoxy(81, 20);
 	}
 	else if (level == 3) {
 		gotoxy(30, 5);
-		typingEffect("3단계 신공학관", 100);
+		typingEffect("3단계 신공학관", 70);
 		gotoxy(10, 8);
-		typingEffect("5교시 시작하기 5분전에 신공학관 1층에 도착했다.", 100);
+		typingEffect("5교시 시작하기 5분전에 신공학관 1층에 도착했다.", 50);
 		gotoxy(10, 10);
-		typingEffect("뭐야? 엘리베이터가 수리중이라고?", 100);
+		typingEffect("뭐야? 엘리베이터가 수리중이라고?", 50);
 		gotoxy(10, 12);
-		typingEffect("계단을 빨리 올라가서 제한시간안에 출석번호를 입력하자", 100);
+		typingEffect("계단을 빨리 올라가서 제한시간안에 출석번호를 입력하자", 50);
 		gotoxy(81, 20);
 	}
+	Sleep(3000);
 }
 
 void showleftTime(int time)
@@ -134,7 +135,7 @@ void showleftTime(int time)
 
 void showNowLocation(int loc)
 {
-
+	loc = loc / 10;
 		// 좌하단 언더바
 		gotoxy(24, 13);
 		if (loc % 2 == 1) {
@@ -170,24 +171,27 @@ void showNowLocation(int loc)
 }
 
 void showPerson(int e) {
+	if (e % 2 == 1) {
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14); // 하얀색
+		gotoxy(34, 8);
+		printf("\\ O /");
+		gotoxy(34, 9);
+		printf("   |   ");
+		gotoxy(34, 10);
+		printf("/ \\");
+	}
 	// 사람 손 아래로 내리기
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14); // 하얀색
-	gotoxy(22, 14);
-	printf("\\ O /");
-	gotoxy(22, 15);
-	printf("  |   ");
-	gotoxy(23, 16);
-	printf("/ \\");
-
-
-	// 사람 손 위로 올리기
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14); // 하얀색
-	gotoxy(22, 14);
-	printf("  O  ");
-	gotoxy(22, 15);
-	printf("/ | \\");
-	gotoxy(23, 16);
-	printf("/ \\");
+	else {
+		// 사람 손 위로 올리기
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14); // 하얀색
+		gotoxy(34, 8);
+		printf("  O  ");
+		gotoxy(34, 9);
+		printf(" / | \\");
+		gotoxy(34, 10);
+		printf("/ \\");
+	}
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 }
 
 void showText(int level,char* text) {

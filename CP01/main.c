@@ -9,6 +9,7 @@ int main(void) {
 	int level;
 	int location=0;
 	int time=0;
+	int equal;
 	char nowText[100] ="";
 	char myText[100]="";
 	char key = 0;
@@ -25,13 +26,14 @@ int main(void) {
 			init(level, &time, &location);
 			system("cls");
 			makeBox(0, 0, 80, 20);
-			strcpy_s(nowText, 100, makeText(level));
+			
 			
 			while (1) {
 				strcpy_s(myText,100 ,"");
+				strcpy_s(nowText, 100, makeText(level));
 				inputText(myText,nowText, &time,&location);
-				gotoxy(0, 0);
-				printf("left time: %d, text: %s", time / 100, myText);
+				equal = isTextEqual(myText, nowText);
+				processTurn(equal, level, &time, &location);
 			}
 		}
 		else if (menu == 1) {
