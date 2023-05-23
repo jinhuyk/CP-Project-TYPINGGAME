@@ -19,16 +19,17 @@ char wordLevel3[][100] = {
 	"buffering", "flash-drive", "pipeline", "processor", "iterator"
 };
 
-void append(char* text, char c) {
-	char* p = text;
-	while (*p != '\0') p++;
-	*p = c;
-	*(p + 1) = '\0';
-}
+
 
 void init(int level, int* time, int* location) {
 	*time = 100000;
 	*location = 0;
+}
+
+void stringInit(char* str, int len) {
+	for (int i = 0; i < len; i++) {
+		str[i] = '\0';
+	}
 }
 
 char* makeText(int level) {
@@ -51,34 +52,48 @@ void inputText(char* myText,char* nowText, int* time,int* location) {
 	int t = *time;
 	int nowTime = 500;
 	char key = 0;
+	int pos = 0;
+
 	while (1) {
-		if (_kbhit() != NULL)
+		if (nowTime / 100 < 0 || t / 100 < 0) {
+			break;
+		}
+		if (_kbhit())
 		{
 			key = _getch();
 			if (key == '\r') {
 				break;
 			}
-			append(myText, key);
-			
-			showMyText(myText);
-		}
-		Sleep(10);
-		if (t % 100 == 0)
-		{
-			if (t/ 100 < 0)
-			{
-				break;
+			else if (key == '\b') {
+				if (pos > 0) {
+					pos--;
+					myText[pos] = '\0';
+				}
+			}
+			else {
+				myText[pos] = key;
+				pos++;
 			}
 			system("cls");
 			makeBox(0, 0, 80, 20);
+			
 			showleftTime(t);
 			showText(0, nowText);
 			showNowLocation(*location);
 			showMyText(myText);
 			
 		}
-		if (nowTime / 100 < 0) {
-			break;
+		Sleep(8);
+		if (t % 100 == 0)
+		{
+			system("cls");
+			makeBox(0, 0, 80, 20);
+			
+			showleftTime(t);
+			showText(0, nowText);
+			showNowLocation(*location);
+			showMyText(myText);
+			
 		}
 		
 		t--;

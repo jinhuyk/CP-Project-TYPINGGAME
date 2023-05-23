@@ -8,13 +8,13 @@ int main(void) {
 	int menu;
 	int level;
 	int location=0;
-	int time=0;
+	int stime=0;
 	int equal;
 	char nowText[100] ="";
 	char myText[100]="";
 	char key = 0;
+	srand((unsigned int)time(NULL));
 	system("mode con: cols=82 lines=22");
-
 	while (1) {
 		system("cls");
 		
@@ -23,17 +23,17 @@ int main(void) {
 		if (menu == 0) {
 			showLevelMenu();
 			showSenario(level = selectLevel());
-			init(level, &time, &location);
+			init(level, &stime, &location);
 			system("cls");
 			makeBox(0, 0, 80, 20);
 			
 			
 			while (1) {
-				strcpy_s(myText,100 ,"");
-				strcpy_s(nowText, 100, makeText(level));
-				inputText(myText,nowText, &time,&location);
+				stringInit(myText, 100);
+				strcpy_s(nowText,100, makeText(level));
+				inputText(myText,nowText, &stime,&location);
 				equal = isTextEqual(myText, nowText);
-				processTurn(equal, level, &time, &location);
+				processTurn(equal, level, &stime, &location);
 			}
 		}
 		else if (menu == 1) {
