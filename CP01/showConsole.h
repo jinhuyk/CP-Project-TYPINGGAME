@@ -9,3 +9,4 @@ void showText(int,char*);
 void showMyText(char*);
 void showDeveloper();
 void showPerson(int);
+void clearText();

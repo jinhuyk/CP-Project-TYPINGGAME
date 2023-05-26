@@ -22,8 +22,20 @@ char wordLevel3[][100] = {
 
 
 void init(int level, int* time, int* location) {
-	*time = 100000;
-	*location = 0;
+	if (level == 1) {
+		*time = 10000;
+		*location = 0;
+	}
+
+	else if (level == 2) {
+		*time = 8000;
+		*location = 0;
+	}
+
+	else if (level == 3) {
+		*time = 6000;
+		*location = 0;
+	}
 }
 
 void stringInit(char* str, int len) {
@@ -31,6 +43,8 @@ void stringInit(char* str, int len) {
 		str[i] = '\0';
 	}
 }
+
+
 
 char* makeText(int level) {
 	char* text ="";
@@ -48,12 +62,12 @@ char* makeText(int level) {
 	return text;
 }
 
-void inputText(char* myText,char* nowText, int* time,int* location) {
-	int t = *time;
+void inputText(char* myText,char* nowText, int* stime,int* location) {
+	int t = *stime;
 	int nowTime = 500;
 	char key = 0;
 	int pos = 0;
-
+	int s_time = time(0);
 	while (1) {
 		if (nowTime / 100 < 0 || t / 100 < 0) {
 			break;
@@ -62,6 +76,8 @@ void inputText(char* myText,char* nowText, int* time,int* location) {
 		{
 			key = _getch();
 			if (key == '\r') {
+				gotoxy(0, 0);
+				printf("Enter!");
 				break;
 			}
 			else if (key == '\b') {
@@ -74,32 +90,26 @@ void inputText(char* myText,char* nowText, int* time,int* location) {
 				myText[pos] = key;
 				pos++;
 			}
-			system("cls");
-			makeBox(0, 0, 80, 20);
-			
-			showleftTime(t);
-			showText(0, nowText);
-			showNowLocation(*location);
+			clearText();
 			showMyText(myText);
+
 			
 		}
-		Sleep(8);
-		if (t % 100 == 0)
-		{
+		if (time(0) - s_time >= 1) {
+			s_time = time(0);
+			t-=100;
+			nowTime-=100;
 			system("cls");
 			makeBox(0, 0, 80, 20);
-			
+
 			showleftTime(t);
 			showText(0, nowText);
 			showNowLocation(*location);
 			showMyText(myText);
-			
 		}
 		
-		t--;
-		nowTime--;
 	}
-	*time = t;
+	*stime = t;
 }
 int isTextEqual(char* text, char* correctText) {
 	/*
@@ -132,7 +142,7 @@ void processTurn(int eql, int level,int* time, int* location) {
 		*location = *location + 10;
 	}
 	else {
-		*time = *time - 500;
+		*time = *time - 1000;
 	}
 	
 }
@@ -141,8 +151,8 @@ int location2score(int level, int location){
 	/*
 	°è´Ü ¼ö¿¡ µû¶ó¼­ ½ºÄÚ¾î Á¡¼ö °è»ê
 	level 1 -> ÃÑ 100Ä­
-	level 2 -> ÃÑ 200Ä­
-	level 3 -> ÃÑ 300Ä­
+	level 2 -> ÃÑ 150Ä­
+	level 3 -> ÃÑ 200Ä­
 	*/
 	int totalLocation;
 	if (level == 1)
@@ -151,11 +161,11 @@ int location2score(int level, int location){
 	}
 	else if (level == 2)
 	{
-		totalLocation = 200;
+		totalLocation = 150;
 	}
 	else if (level == 3)
 	{
-		totalLocation=300;
+		totalLocation=200;
 	}
 	return(location * (100 / totalLocation));
 	
@@ -190,4 +200,13 @@ int makeFinishCode() {
  srand((unsigned)time(NULL));
  code = rand() % 900 + 100; // (0ºÎÅÍ 899±îÁö »ý¼ºµÈ ³ª¸ÓÁö + 100) = 100 ºÎÅÍ 999±îÁö ·£´ýÇÏ°Ô »ý¼º
  return code;
+}
+
+int getTotalLocation(level) {
+	if (level == 1)
+		return 100;
+	else if (level == 2)
+		return 150;
+	else if (level == 3)
+		return 200;
 }

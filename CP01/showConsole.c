@@ -209,6 +209,13 @@ void showMyText(char* text) {
 	printf("%s", text);
 }
 
+void clearText() {
+	gotoxy(20, 16);
+	for (int i = 0; i < 20; i++) {
+		printf(" ");
+	}
+}
+
 void showFinish(int isFinish) {
 	if(isFinish == 0) // 실패
 	{
@@ -217,3 +224,30 @@ void showFinish(int isFinish) {
 	else // 성공
 		printf("정상 출석 완료! 늦지않고 잘 도착했다!");
 }
+
+void showLocation(int totalLocation, int nowLocation) {
+	gotoxy(5, 3);
+	printf("남은 계단 수: %d", totalLocation-nowLocation);
+}
+
+/*
+void showLoadingBar() {
+	int progress;
+
+	for (progress = 0; progress <= 100; progress += 5) {
+		int i;
+		printf("Progress: [");
+		for (i = 0; i < progress / 5; i++) {
+			printf("#");
+		}
+		for (i = progress / 5; i < 20; i++) {
+			printf(" ");
+		}
+		printf("] %d%%\r", progress);
+		fflush(stdout);
+		Sleep(150);
+	}
+
+	printf("\nLoading Complete!\n");
+}
+*/

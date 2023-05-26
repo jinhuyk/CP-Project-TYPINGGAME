@@ -37,6 +37,7 @@ int main(void) {
 			}
 		}
 		else if (menu == 1) {
+			system("cls");
 			return 0;
 		}
 		else if (menu == 2) {
