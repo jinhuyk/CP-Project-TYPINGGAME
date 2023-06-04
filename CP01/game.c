@@ -1,8 +1,5 @@
-#include "main.h"
+#define _CRT_SECURE_NO_WARNINGS
 #include "game.h"
-#include "showConsole.h"
-#include <string.h>
-// all game function write here
 
 #define MAX_SCORE 100
 
@@ -20,20 +17,42 @@ char wordLevel3[][100] = {
 };
 
 
+void next(int level) {
+
+}
+void menu() {
+	int menu;
+
+	while (1) {
+			showMenu();
+	menu = selectMenu();
+	if (menu == 0) {
+		game(0);
+	}
+	else if (menu == 1) {
+		system("cls");
+		exit(0);
+	}
+	else if (menu == 2) {
+		showDeveloper();
+	}
+	}
+
+}
 
 void init(int level, int* time, int* location) {
 	if (level == 1) {
-		*time = 10000;
+		*time = 100;
 		*location = 0;
 	}
 
 	else if (level == 2) {
-		*time = 8000;
+		*time = 80;
 		*location = 0;
 	}
 
 	else if (level == 3) {
-		*time = 6000;
+		*time = 60;
 		*location = 0;
 	}
 }
@@ -44,6 +63,52 @@ void stringInit(char* str, int len) {
 	}
 }
 
+
+
+void game(int isContinue) {
+	int level = 1, location = 0, stime = 0, equal = 0;
+	char nowText[100] = "";
+	char myText[100] = "";
+	char key = 0;
+
+	if (isContinue == 0) {
+		showLevelMenu();
+		showSenario(level = selectLevel());
+	}
+	else {
+		level = isContinue;
+	}
+	init(level, &stime, &location);
+	system("cls");
+	makeBox(0, 0, 80, 20);
+	init(level, &stime, &location);
+	system("cls");
+	makeBox(0, 0, 80, 20);
+
+
+	while (stime >= 0) {
+		equal = 0;
+		if (isFinish(location2score(level, location), stime)) {
+			sprintf(nowText, "%d", makeFinishCode());
+			while (1)
+			{
+				stringInit(myText, 100);
+				
+				inputText(myText, nowText, &stime, &location, level, 1);
+				equal = isTextEqual(myText, nowText);
+				if (equal == 1) break;
+			}
+			showFinish(equal);
+			return;
+		}
+		stringInit(myText, 100);
+		strcpy_s(nowText, 100, makeText(level));
+		inputText(myText, nowText, &stime, &location, level , 0);
+		equal = isTextEqual(myText, nowText);
+		processTurn(equal, level, &stime, &location);
+	}
+	showFinish(equal);
+}
 
 
 char* makeText(int level) {
@@ -62,14 +127,16 @@ char* makeText(int level) {
 	return text;
 }
 
-void inputText(char* myText,char* nowText, int* stime,int* location) {
+void inputText(char* myText,char* nowText, int* stime,int* location, int level, int isCode) {
 	int t = *stime;
-	int nowTime = 500;
+	int nowTime = 5;
 	char key = 0;
 	int pos = 0;
 	int s_time = time(0);
+
+	if (isCode) nowTime = t;
 	while (1) {
-		if (nowTime / 100 < 0 || t / 100 < 0) {
+		if (nowTime <= 0 || t  <= 0) {
 			break;
 		}
 		if (_kbhit())
@@ -97,14 +164,15 @@ void inputText(char* myText,char* nowText, int* stime,int* location) {
 		}
 		if (time(0) - s_time >= 1) {
 			s_time = time(0);
-			t-=100;
-			nowTime-=100;
+			t-=1;
+			nowTime-=1;
 			system("cls");
 			makeBox(0, 0, 80, 20);
 
 			showleftTime(t);
-			showText(0, nowText);
+			showText(nowText);
 			showNowLocation(*location);
+			showLocation(getTotalLocation(level),*location);
 			showMyText(myText);
 		}
 		
@@ -112,15 +180,6 @@ void inputText(char* myText,char* nowText, int* stime,int* location) {
 	*stime = t;
 }
 int isTextEqual(char* text, char* correctText) {
-	/*
-		TODO: 김석진
-		inputText() 에서 반환받은 문자열과 비교
-
-		같으면 1
-		다르면 0
-
-		반환
-	*/
 	int result = strcmp(text, correctText);
 	if (result == 0)
 		result = 1;
@@ -130,83 +189,44 @@ int isTextEqual(char* text, char* correctText) {
 	return result;
 }
 void processTurn(int eql, int level,int* time, int* location) {
-
-	/*
-	*	TODO:
-	*	eql 인자를 통해 텍스트 동일 여부 판단 및, 
-	*	level에 맞는 시간 등 업데이트
-	*   location -> 계단 수
-	*/
 	if (eql == 1)
 	{
 		*location = *location + 10;
 	}
 	else {
-		*time = *time - 1000;
+		*time = *time - 10;
 	}
 	
 }
 
 int location2score(int level, int location){
-	/*
-	계단 수에 따라서 스코어 점수 계산
-	level 1 -> 총 100칸
-	level 2 -> 총 150칸
-	level 3 -> 총 200칸
-	*/
-	int totalLocation;
-	if (level == 1)
-	{
-		totalLocation=100;
-	}
-	else if (level == 2)
-	{
-		totalLocation = 150;
-	}
-	else if (level == 3)
-	{
-		totalLocation=200;
-	}
-	return(location * (100 / totalLocation));
+	return(location * (100 / getTotalLocation(level)));
 	
 }
 
 int isFinish(int score, int time) {
 	int isFinish=0;
-	if((score >= 100) || (time > 0)) // 100점 이상이면 승리 or 남은시간 0초 이상이면 승리
+	if((score >= 100) && (time > 0)) // 100점 이상이면 승리 or 남은시간 0초 이상이면 승리
 	{
 		isFinish = 1;
 		return isFinish;
 	}
-	else // 100점이상 or 남은시간 0초이상 에 해당하지 않는 경우
-		return isFinish; // isFinish 가 0 반환
-	/*
-	* TODO: 
-	* 시간초과 및 게임 승패여부 변별 
-	* 
-	* time 이용하여 시간 초과 판단,
-	* 
-	* score 과 MAX_SCORE 비교하여 점수 판단,
-	* 
-	* lose : 0
-	* win : 1
-	* 
-	* isFinish를 반환
-	*/
+	else return isFinish;
+
 }
 
 int makeFinishCode() {
  int code;
- srand((unsigned)time(NULL));
- code = rand() % 900 + 100; // (0부터 899까지 생성된 나머지 + 100) = 100 부터 999까지 랜덤하게 생성
+ code = rand() % 900 + 100;
  return code;
 }
 
-int getTotalLocation(level) {
+int getTotalLocation(int level) {
 	if (level == 1)
 		return 100;
 	else if (level == 2)
 		return 150;
 	else if (level == 3)
 		return 200;
+	return 0;
 }

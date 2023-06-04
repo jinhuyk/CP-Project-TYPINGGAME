@@ -1,6 +1,9 @@
+#ifndef CURSOR_H
+# define CURSOR_H
 
-#include<windows.h>
-#pragma once
-void gotoxy(int, int);
-COORD getxy();
-int selectxy(COORD*, int);
+# include <windows.h>
+
+void    gotoxy(int, int);
+COORD   getxy();
+
+#endif

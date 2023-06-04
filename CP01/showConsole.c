@@ -1,40 +1,36 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "main.h"
-#include "showConsole.h"
-#include "cursor.h"
-#include "menu.h"
+ï»¿#include "showConsole.h"
+
 
 void makeBox(int x1, int y1, int x2, int y2) {
 	int i;
 	gotoxy(x1, y1); 
-	printf("¦£");
+	printf("â”Œ");
 	for (i = 1; i < (x2 - x1) - 1; i++) 
-		printf("¦¡");
-	printf("¦¤");
+		printf("â”€");
+	printf("â”");
 
 	for (i = 1; i < (y2 - y1); i++) {
 		gotoxy(x1, y1 + i); 
-		printf("¦¢");
+		printf("â”‚");
 		gotoxy(x2 - 1, y1 + i); 
-		printf("¦¢");
+		printf("â”‚");
 	}
 	gotoxy(x1, y2); 
-	printf("¦¦");
+	printf("â””");
 	for (i = 1; i < (x2 - x1) - 1; i++) 
-		printf("¦¡");
-	printf("¦¥");
+		printf("â”€");
+	printf("â”˜");
 }
 
 void showMenu() {
+	system("cls");
 	makeBox(0, 0, 80, 20);
 	gotoxy(8, 15);
-	printf("1. ¼ö¾÷ °¡±â");
+	printf("1. ìˆ˜ì—… ê°€ê¸°");
 	gotoxy(34, 15);
-	printf("2. ¼ö¾÷ Â°±â");
+	printf("2. ìˆ˜ì—… ì§¸ê¸°");
 	gotoxy(57, 15);
-	printf("3. °³¹ßÀÚ º¸±â");
+	printf("3. ê°œë°œìž ë³´ê¸°");
 	gotoxy(81, 20);
 
 }
@@ -51,118 +47,110 @@ void showLevelMenu() {
 	system("cls");
 	makeBox(0, 0, 80, 20);
 	gotoxy(8, 15);
-	printf("1´Ü°è -°øÇÐ°ü");
+	printf("1ë‹¨ê³„ - ê³µí•™ê´€");
 	gotoxy(34, 15);
-	printf("2´Ü°è -»õÃµ³â°ü");
+	printf("2ë‹¨ê³„ - ìƒˆì²œë…„ê´€");
 	gotoxy(57, 15);
-	printf("3´Ü°è -½Å°øÇÐ°ü");
+	printf("3ë‹¨ê³„ - ì‹ ê³µí•™ê´€");
 }
 
 void showDeveloper() {
 	system("cls");
 	makeBox(0, 0, 80, 20);
 	gotoxy(30, 5);
-	printf("°³¹ßÀÚ Á¤º¸");
+	printf("ê°œë°œìž ì •ë³´");
 	gotoxy(10, 8);
-	typingEffect("ÄÄÇ»ÅÍ °øÇÐºÎ 202210748 ¹®ÁøÇõ", 50);
+	typingEffect("ì»´í“¨í„° ê³µí•™ë¶€ 202210748 ë¬¸ì§„í˜", 50);
 	gotoxy(10, 10);
-	typingEffect("ÄÄÇ»ÅÍ °øÇÐºÎ 202111256 ±è¼®Áø", 50);
+	typingEffect("ì»´í“¨í„° ê³µí•™ë¶€ 202111256 ê¹€ì„ì§„", 50);
 	gotoxy(10, 12);
-	typingEffect("ÄÄÇ»ÅÍ °øÇÐºÎ 202311262 ±è¹Î±Ô", 50);
+	typingEffect("ì»´í“¨í„° ê³µí•™ë¶€ 202311262 ê¹€ë¯¼ê·œ", 50);
 	gotoxy(10, 14);
-	typingEffect("ÄÄÇ»ÅÍ °øÇÐºÎ 202311302 º¯¼öÇõ", 50);
+	typingEffect("ì»´í“¨í„° ê³µí•™ë¶€ 202311302 ë³€ìˆ˜í˜", 50);
 	gotoxy(10, 16);
-	typingEffect("KONKUK Univ. Computer Science & Engineering, C-Programming Team", 100);
-	gotoxy(10, 17);
-	printf("5ÃÊ µÚ ¸ÞÀÎÀ¸·Î µ¹¾Æ°©´Ï´Ù...");
-	Sleep(5000);
+	typingEffect("KONKUK Univ. CSE, C-Programming Team 01", 100);
+	gotoxy(10,18);
+	system("pause");
 
 }
 
-void showGame(int level) {
-
-}
 void showSenario(int level) {
 	system("cls");
 	makeBox(0, 0, 80, 20);
 	if (level == 1) {
 		gotoxy(30, 5);
-		typingEffect("1´Ü°è °øÇÐ°ü",70);
+		typingEffect("1ë‹¨ê³„ ê³µí•™ê´€",70);
 		gotoxy(10, 8);
-		typingEffect("1±³½Ã ½ÃÀÛÇÏ±â 5ºÐÀü¿¡ °øÇÐ°ü 1Ãþ¿¡ µµÂøÇß´Ù.",50);
+		typingEffect("1êµì‹œ ì‹œìž‘í•˜ê¸° 5ë¶„ì „ì— ê³µí•™ê´€ 1ì¸µì— ë„ì°©í–ˆë‹¤.",50);
 		gotoxy(10, 10);
-		typingEffect("´ÊÁö ¾Ê°Ô ´Ü¾î¸¦ ÀÔ·ÂÇÏ¿© °è´ÜÀ» ¿Ã¶ó°¡ÀÚ",50);
+		typingEffect("ëŠ¦ì§€ ì•Šê²Œ ë‹¨ì–´ë¥¼ ìž…ë ¥í•˜ì—¬ ê³„ë‹¨ì„ ì˜¬ë¼ê°€ìž",50);
 		gotoxy(10, 12);
-		typingEffect("°è´ÜÀ» ´Ù ¿Ã¶ó°¡¼­ Á¦ÇÑ½Ã°£¾È¿¡ Ãâ¼®¹øÈ£¸¦ ÀÔ·ÂÇÏÀÚ",50);
-		gotoxy(10, 14);
-		printf("3ÃÊ ÈÄ ½ÃÀÛÇÕ´Ï´Ù...");
+		typingEffect("ê³„ë‹¨ì„ ë‹¤ ì˜¬ë¼ê°€ì„œ ì œí•œì‹œê°„ì•ˆì— ì¶œì„ë²ˆí˜¸ë¥¼ ìž…ë ¥í•˜ìž",50);
 
 	}
 	else if (level == 2) {
 		gotoxy(30, 5);
-		typingEffect("2´Ü°è »õÃµ³â°ü", 70);
+		typingEffect("2ë‹¨ê³„ ìƒˆì²œë…„ê´€", 70);
 		gotoxy(10, 8);
-		typingEffect("3±³½Ã ½ÃÀÛÇÏ±â 5ºÐÀü¿¡ »õÃµ³â°ü 1Ãþ¿¡ µµÂøÇß´Ù.",50);
+		typingEffect("3êµì‹œ ì‹œìž‘í•˜ê¸° 5ë¶„ì „ì— ìƒˆì²œë…„ê´€ 1ì¸µì— ë„ì°©í–ˆë‹¤.",50);
 		gotoxy(10, 10);
-		typingEffect("¾Æ´Ï ¿¤¸®º£ÀÌÅÍ ÁÙÀÌ ÀÌ·¸°Ô ±æ´Ù°í?",50);
+		typingEffect("ì•„ë‹ˆ ì—˜ë¦¬ë² ì´í„° ì¤„ì´ ì´ë ‡ê²Œ ê¸¸ë‹¤ê³ ?",50);
 		gotoxy(10, 12);
-		typingEffect("°è´ÜÀ¸·Î ¿Ã¶ó°¡¼­ Á¦ÇÑ½Ã°£¾È¿¡ Ãâ¼®¹øÈ£¸¦ ÀÔ·ÂÇÏÀÚ",50);
-		gotoxy(81, 20);
+		typingEffect("ê³„ë‹¨ìœ¼ë¡œ ì˜¬ë¼ê°€ì„œ ì œí•œì‹œê°„ì•ˆì— ì¶œì„ë²ˆí˜¸ë¥¼ ìž…ë ¥í•˜ìž",50);
 	}
 	else if (level == 3) {
 		gotoxy(30, 5);
-		typingEffect("3´Ü°è ½Å°øÇÐ°ü", 70);
+		typingEffect("3ë‹¨ê³„ ì‹ ê³µí•™ê´€", 70);
 		gotoxy(10, 8);
-		typingEffect("5±³½Ã ½ÃÀÛÇÏ±â 5ºÐÀü¿¡ ½Å°øÇÐ°ü 1Ãþ¿¡ µµÂøÇß´Ù.", 50);
+		typingEffect("5êµì‹œ ì‹œìž‘í•˜ê¸° 5ë¶„ì „ì— ì‹ ê³µí•™ê´€ 1ì¸µì— ë„ì°©í–ˆë‹¤.", 50);
 		gotoxy(10, 10);
-		typingEffect("¹¹¾ß? ¿¤¸®º£ÀÌÅÍ°¡ ¼ö¸®ÁßÀÌ¶ó°í?", 50);
+		typingEffect("ë­ì•¼? ì—˜ë¦¬ë² ì´í„°ê°€ ìˆ˜ë¦¬ì¤‘ì´ë¼ê³ ?", 50);
 		gotoxy(10, 12);
-		typingEffect("°è´ÜÀ» »¡¸® ¿Ã¶ó°¡¼­ Á¦ÇÑ½Ã°£¾È¿¡ Ãâ¼®¹øÈ£¸¦ ÀÔ·ÂÇÏÀÚ", 50);
-		gotoxy(81, 20);
+		typingEffect("ê³„ë‹¨ì„ ë¹¨ë¦¬ ì˜¬ë¼ê°€ì„œ ì œí•œì‹œê°„ì•ˆì— ì¶œì„ë²ˆí˜¸ë¥¼ ìž…ë ¥í•˜ìž", 50);
 	}
-	Sleep(3000);
+	//showLoadingBar êµ¬í˜„ë˜ë©´ ê·¸ê²ƒê³¼ êµì²´
+	gotoxy(10,14);
+	system("pause");
+	gotoxy(81,20);
 }
 
 void showleftTime(int time)
 {	
-	gotoxy(5, 2); // ÁÂÇ¥ ÃßÈÄ ¼öÁ¤ ÇÊ¿ä
-	printf("³²Àº ½Ã°£: %dÃÊ\n", time/100); // ½Ã°£Ãâ·Â
-	/*
-		TODO:
-		ÄÜ¼Ö¿¡ Á¤ÇØ³í ÁÂÇ¥¿¡ ½Ã°£ Ãâ·Â 
-	*/
+	gotoxy(5, 2); 
+	printf("ë‚¨ì€ ì‹œê°„: %dì´ˆ\n", time); 
+
 }
 
 void showNowLocation(int loc)
 {
 	loc = loc / 10;
-		// ÁÂÇÏ´Ü ¾ð´õ¹Ù
+		// ì¢Œí•˜ë‹¨ ì–¸ë”ë°”
 		gotoxy(24, 13);
 		if (loc % 2 == 1) {
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); // ÇÏ¾á»ö
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); // í•˜ì–€ìƒ‰
 		}
 		else {
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9); // ÆÄ¶õ»ö
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9); // íŒŒëž€ìƒ‰
 		}
 		printf("__________");
 
-		// Áß¾Ó ¾ð´õ¹Ù
+		// ì¤‘ì•™ ì–¸ë”ë°”
 		gotoxy(34, 11);
 		if (loc % 2 == 1) {
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9); // ÆÄ¶õ»ö
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9); // íŒŒëž€ìƒ‰
 		}
 		else {
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); // ÇÏ¾á»ö
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); // í•˜ì–€ìƒ‰
 		}
 		printf("__________");
 
-		// ¿ì»ó´Ü ¾ð´õ¹Ù
+		// ìš°ìƒë‹¨ ì–¸ë”ë°”
 		gotoxy(44, 9);
 		if (loc % 2 == 1) {
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); // ÇÏ¾á»ö
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); // í•˜ì–€ìƒ‰
 		}
 		else {
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9); // ÆÄ¶õ»ö
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9); // íŒŒëž€ìƒ‰
 		}
 		printf("__________");
 
@@ -170,9 +158,11 @@ void showNowLocation(int loc)
 
 }
 
+
+//TODO: ì‚¬ëžŒ ìœ„ì¹˜ ì¡°ì •í•´ì•¼í•¨
 void showPerson(int e) {
 	if (e % 2 == 1) {
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14); // ÇÏ¾á»ö
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14); // í•˜ì–€ìƒ‰
 		gotoxy(34, 8);
 		printf("\\ O /");
 		gotoxy(34, 9);
@@ -180,10 +170,10 @@ void showPerson(int e) {
 		gotoxy(34, 10);
 		printf("/ \\");
 	}
-	// »ç¶÷ ¼Õ ¾Æ·¡·Î ³»¸®±â
+	// ì‚¬ëžŒ ì† ì•„ëž˜ë¡œ ë‚´ë¦¬ê¸°
 	else {
-		// »ç¶÷ ¼Õ À§·Î ¿Ã¸®±â
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14); // ÇÏ¾á»ö
+		// ì‚¬ëžŒ ì† ìœ„ë¡œ ì˜¬ë¦¬ê¸°
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14); // í•˜ì–€ìƒ‰
 		gotoxy(34, 8);
 		printf("  O  ");
 		gotoxy(34, 9);
@@ -194,14 +184,9 @@ void showPerson(int e) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 }
 
-void showText(int level,char* text) {
-	/*
-		TODO:
-		·£´ýÀ¸·Î ´Ü¾î Ãâ·Â
-	*/
-	
+void showText(char* text) {
 	gotoxy(25, 4);
-	printf("Á¦½Ã¾î: %s", text);
+	printf("ì œì‹œì–´: %s", text);
 }
 void showMyText(char* text) {
 	makeBox(18, 15, 62, 17);
@@ -216,18 +201,51 @@ void clearText() {
 	}
 }
 
+//TODO: ìœ„ì¹˜ ì¡°ì •í•´ì•¼í•¨
 void showFinish(int isFinish) {
-	if(isFinish == 0) // ½ÇÆÐ
+	system("cls");
+	makeBox(0, 0, 80, 20);
+	gotoxy(25, 4);
+	if(isFinish == 0) // ì‹¤íŒ¨
 	{
-		printf("Áö°¢ÀÌ´Ù..."); 
+		printf("ì§€ê°ì´ë‹¤..."); 
 	}
-	else // ¼º°ø
-		printf("Á¤»ó Ãâ¼® ¿Ï·á! ´ÊÁö¾Ê°í Àß µµÂøÇß´Ù!");
+	else
+		printf("ì •ìƒ ì¶œì„ ì™„ë£Œ! ëŠ¦ì§€ì•Šê³  ìž˜ ë„ì°©í–ˆë‹¤!");
+	showSmile(25, 6);
+	
+	Sleep(2000);
+}
+void showSmile(int x, int y) {
+	gotoxy(x, y++);
+	printf("â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–’â–’â–’â–’â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘\n");
+	gotoxy(x, y++);
+	printf("â–‘â–‘â–‘â–‘â–‘â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–‘â–‘â–‘â–‘â–‘\n");
+	gotoxy(x, y++);
+	printf("â–‘â–‘â–‘â–’â–’â–’â–’â–’â–’â–“â–’â–’â–’â–’â–’â–“â–“â–’â–’â–’â–’â–’â–‘â–‘â–‘\n");
+	gotoxy(x, y++);
+	printf("â–‘â–‘â–’â–’â–’â–’â–’â–’â–ˆâ–ˆâ–“â–’â–’â–’â–“â–ˆâ–ˆâ–’â–’â–’â–’â–’â–’â–‘â–‘\n");
+	gotoxy(x, y++);
+	printf("â–‘â–’â–’â–’â–’â–’â–’â–’â–ˆâ–ˆâ–“â–’â–’â–’â–“â–ˆâ–ˆâ–’â–’â–’â–’â–’â–’â–’â–‘\n");
+	gotoxy(x, y++);
+	printf("â–’â–’â–’â–’â–’â–’â–’â–’â–“â–ˆâ–’â–’â–’â–’â–’â–ˆâ–“â–’â–’â–’â–’â–’â–’â–’â–’\n");
+	gotoxy(x, y++);
+	printf("â–’â–’â–’â–“â–“â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–“â–“â–’â–’â–’\n");
+	gotoxy(x, y++);
+	printf("â–’â–’â–’â–’â–ˆâ–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–ˆâ–’â–’â–’â–’\n");
+	gotoxy(x, y++);
+	printf("â–‘â–’â–’â–’â–’â–“â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–“â–“â–’â–’â–’â–‘\n");
+	gotoxy(x, y++);
+	printf("â–‘â–‘â–’â–’â–’â–’â–“â–“â–’â–’â–’â–’â–’â–’â–’â–’â–’â–“â–“â–’â–’â–’â–’â–‘â–‘\n");
+	gotoxy(x, y++);
+	printf("â–‘â–‘â–‘â–’â–’â–’â–’â–’â–“â–“â–“â–“â–“â–“â–“â–“â–’â–’â–’â–’â–’â–’â–‘â–‘â–‘\n");
+	gotoxy(x, y++);
+	printf("â–‘â–‘â–‘â–‘â–‘â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–‘â–‘â–‘â–‘â–‘â–‘\n");
 }
 
 void showLocation(int totalLocation, int nowLocation) {
 	gotoxy(5, 3);
-	printf("³²Àº °è´Ü ¼ö: %d", totalLocation-nowLocation);
+	printf("ë‚¨ì€ ê³„ë‹¨ ìˆ˜: %d", totalLocation-nowLocation);
 }
 
 /*
