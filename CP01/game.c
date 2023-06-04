@@ -16,18 +16,38 @@ char wordLevel3[][100] = {
 	"buffering", "flash-drive", "pipeline", "processor", "iterator"
 };
 
+int wordLevel1Check[25] = {
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
 
-void next(int level) {
+int wordLevel2Check[19] = {
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
 
+int wordLevel3Check[20] = {
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
+
+
+void next(int level, int rst) {
+	int menu;
+	showFinish(rst);
+	
+	menu = selectLevel();
+	if (menu == 1) game(level);
+	else if (menu == 2) {
+		game((level==3)?level:level+1);
+	}
+	else return;
 }
 void menu() {
 	int menu;
-
 	while (1) {
 			showMenu();
 	menu = selectMenu();
 	if (menu == 0) {
 		game(0);
+
 	}
 	else if (menu == 1) {
 		system("cls");
@@ -47,12 +67,12 @@ void init(int level, int* time, int* location) {
 	}
 
 	else if (level == 2) {
-		*time = 80;
+		*time = 100;
 		*location = 0;
 	}
 
 	else if (level == 3) {
-		*time = 60;
+		*time = 100;
 		*location = 0;
 	}
 }
@@ -66,7 +86,9 @@ void stringInit(char* str, int len) {
 
 
 void game(int isContinue) {
-	int level = 1, location = 0, stime = 0, equal = 0;
+	int level = 0, location = 0, stime = 0, equal = 0;
+	int state = 0;
+	int item = 0;
 	char nowText[100] = "";
 	char myText[100] = "";
 	char key = 0;
@@ -77,6 +99,7 @@ void game(int isContinue) {
 	}
 	else {
 		level = isContinue;
+		showSenario(level);
 	}
 	init(level, &stime, &location);
 	system("cls");
@@ -84,56 +107,76 @@ void game(int isContinue) {
 	init(level, &stime, &location);
 	system("cls");
 	makeBox(0, 0, 80, 20);
-
+	starting_sound();
 
 	while (stime >= 0) {
+
 		equal = 0;
+		item = rand() % 10;
+		if ((item == 2  || item ==3) && stime > 30) {
+			item = 1;
+		}
+		if (item >= 4) item = 0;
 		if (isFinish(location2score(level, location), stime)) {
 			sprintf(nowText, "%d", makeFinishCode());
 			while (1)
 			{
 				stringInit(myText, 100);
-				
-				inputText(myText, nowText, &stime, &location, level, 1);
+				inputText(myText, nowText, &stime, &location, level, 1,state,0);
 				equal = isTextEqual(myText, nowText);
 				if (equal == 1) break;
 			}
-			showFinish(equal);
-			return;
+			break;
 		}
 		stringInit(myText, 100);
 		strcpy_s(nowText, 100, makeText(level));
-		inputText(myText, nowText, &stime, &location, level , 0);
+		inputText(myText, nowText, &stime, &location, level , 0,state,item);
 		equal = isTextEqual(myText, nowText);
-		processTurn(equal, level, &stime, &location);
+		processTurn(equal, level, &stime, &location,&state,item);
 	}
-	showFinish(equal);
+	next(level, equal);
+	
 }
 
 
 char* makeText(int level) {
-	char* text ="";
+	char* text = "";
+	int index = 0;
 	switch (level) {
 	case 1:
-		text = wordLevel1[rand() % 25];
+		do {
+			index = rand() % 25;
+		} while (wordLevel1Check[index] != 0);
+		wordLevel1Check[index] = 1;
+		text = wordLevel1[index];
 		break;
+
 	case 2:
-		text = wordLevel2[rand() % 19];
+		do {
+			index = rand() % 19;
+		} while (wordLevel2Check[index] != 0);
+		wordLevel2Check[index] = 1;
+		text = wordLevel2[index];
 		break;
 	case 3:
-		text = wordLevel3[rand() % 20];
+		do {
+			index = rand() % 20;
+		} while (wordLevel3Check[index] != 0);
+		wordLevel3Check[index] = 1;
+		text = wordLevel3[index];
 		break;
 	}
 	return text;
 }
 
-void inputText(char* myText,char* nowText, int* stime,int* location, int level, int isCode) {
+
+void inputText(char* myText,char* nowText, int* stime,int* location, int level, int isCode, int state,int item) {
 	int t = *stime;
 	int nowTime = 5;
 	char key = 0;
 	int pos = 0;
 	int s_time = time(0);
-
+	
 	if (isCode) nowTime = t;
 	while (1) {
 		if (nowTime <= 0 || t  <= 0) {
@@ -144,7 +187,7 @@ void inputText(char* myText,char* nowText, int* stime,int* location, int level, 
 			key = _getch();
 			if (key == '\r') {
 				gotoxy(0, 0);
-				printf("Enter!");
+				
 				break;
 			}
 			else if (key == '\b') {
@@ -168,9 +211,9 @@ void inputText(char* myText,char* nowText, int* stime,int* location, int level, 
 			nowTime-=1;
 			system("cls");
 			makeBox(0, 0, 80, 20);
-
-			showleftTime(t);
-			showText(nowText);
+			showPerson(state);
+			showleftTime(t,level);
+			showText(nowText, isCode, item);
 			showNowLocation(*location);
 			showLocation(getTotalLocation(level),*location);
 			showMyText(myText);
@@ -188,19 +231,36 @@ int isTextEqual(char* text, char* correctText) {
 	
 	return result;
 }
-void processTurn(int eql, int level,int* time, int* location) {
+void processTurn(int eql, int level,int* time, int* location,int* state, int item) {
 	if (eql == 1)
 	{
+		showItem(item);
+		if (item == 1) {
+			*location = *location + 10;
+		}
+		else if(item == 2) {
+			*time = *time + 10;
+		}
+
+		else if (item == 3){
+			*location = *location + 10;
+			*time = *time + 10;
+		}
 		*location = *location + 10;
+		*state = 0;
+		answer_sound();
 	}
 	else {
 		*time = *time - 10;
+		*state = 1;
+		wrong_sound();
 	}
-	
+	if(*location < 0)
+		*location = 0;
 }
 
 int location2score(int level, int location){
-	return(location * (100 / getTotalLocation(level)));
+	return((int)(location * (100.0 / getTotalLocation(level))));
 	
 }
 
@@ -209,6 +269,7 @@ int isFinish(int score, int time) {
 	if((score >= 100) && (time > 0)) // 100점 이상이면 승리 or 남은시간 0초 이상이면 승리
 	{
 		isFinish = 1;
+		
 		return isFinish;
 	}
 	else return isFinish;

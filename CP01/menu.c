@@ -1,8 +1,6 @@
 #include "menu.h"
 
 int selectMenu() {
-
-	COORD menuItem[] = { {6,15},{32,15},{55,15} };
 	int x = 6, y = 15, ch;
 
 	while(1)
@@ -17,15 +15,16 @@ int selectMenu() {
 		if (ch == 224)
 		{
 			ch = _getch();
+			cursormoving_sound();
 			switch(ch)
 			{
 			case 77:
-				if(x==6) x = 32;
-				else if(x==32) x = 55;
+				if(x==6) x = 29;
+				else if(x==29) x = 55;
 				break;
 			case 75:
-				if(x==32) x = 6;
-				else if(x==55) x = 32;
+				if(x==29) x = 6;
+				else if(x==55) x = 29;
 				break;				
 			}
 		}
@@ -35,7 +34,7 @@ int selectMenu() {
 	switch (x)
 	{
 	case 6: return 0;
-	case 32: return 1;
+	case 29: return 1;
 	case 55: return 2;
 	}
 }
@@ -43,7 +42,6 @@ int selectMenu() {
 
 int selectLevel() {
 	int level=0;
-	COORD menuItem[] = { {6,15},{32,15},{55,15} };
 	int x = 6, y = 15, ch;
 
 	while (1)
@@ -58,26 +56,27 @@ int selectLevel() {
 		if (ch == 224)
 		{
 			ch = _getch();
+			cursormoving_sound();
 			switch (ch)
 			{
 			case 77:
 				if (x == 6)
 				{
-					x = 32;
+					x = 29;
 				}
-				else if (x == 32)
+				else if (x == 29)
 				{
 					x = 55;
 				}
 				break;
 			case 75:
-				if (x == 32)
+				if (x == 29)
 				{
 					x = 6;
 				}
 				else if (x == 55)
 				{
-					x = 32;
+					x = 29;
 				}
 				break;
 
@@ -87,10 +86,9 @@ int selectLevel() {
 	}
 	switch (x)
 	{
-	case 6: level = 1; break;
-	case 32: level = 2; break;
-	case 75: level = 3; break;
+	case 6: return 1;
+	case 29: return 2;
+	case 55: return 3;
 	}
-	return level;
 }
 

@@ -32,12 +32,14 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="menu.c" />
     <ClCompile Include="showConsole.c" />
+    <ClCompile Include="sound.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cursor.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="showConsole.h" />
+    <ClInclude Include="sound.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
