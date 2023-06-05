@@ -16,23 +16,19 @@ char wordLevel3[][100] = {
 	"buffering", "flash-drive", "pipeline", "processor", "iterator"
 };
 
-int wordLevel1Check[25] = {
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-};
+int *wordLevel1Check;
 
-int wordLevel2Check[19] = {
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-};
+int *wordLevel2Check;
 
-int wordLevel3Check[20] = {
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-};
+int *wordLevel3Check;
 
 
 void next(int level, int rst) {
 	int menu;
 	showFinish(rst);
-	
+	free(wordLevel1Check);
+	free(wordLevel2Check);
+	free(wordLevel3Check);
 	menu = selectLevel();
 	if (menu == 1) game(level);
 	else if (menu == 2) {
@@ -64,16 +60,19 @@ void init(int level, int* time, int* location) {
 	if (level == 1) {
 		*time = 100;
 		*location = 0;
+		wordLevel1Check = (int*)calloc(25, sizeof(int));
 	}
 
 	else if (level == 2) {
 		*time = 100;
 		*location = 0;
+		wordLevel2Check = (int*)calloc(19, sizeof(int));
 	}
 
 	else if (level == 3) {
 		*time = 100;
 		*location = 0;
+		wordLevel3Check = (int*)calloc(20, sizeof(int));
 	}
 }
 
@@ -92,7 +91,7 @@ void game(int isContinue) {
 	char nowText[100] = "";
 	char myText[100] = "";
 	char key = 0;
-
+	
 	if (isContinue == 0) {
 		showLevelMenu();
 		showSenario(level = selectLevel());
