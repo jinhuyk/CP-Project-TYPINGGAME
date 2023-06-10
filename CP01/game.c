@@ -13,7 +13,7 @@ char wordLevel2[][100] = {
 
 char wordLevel3[][100] = {
 	"program-counter", "operating-system", "lab-assignment", "programming-practice", "instruction-set-architectures", "parallelism", "multiflexer", "memory", "unsigned-integer", "data-segment-pointer", "pseudodirect-addressing", "base-addressing", "assembly", "pseudoinstruction", "artificial-intelligence",
-	"buffering", "flash-drive", "pipeline", "processor", "iterator"
+	"buffering", "flash-drive", "pipeline", "processor", "iterator","regular-expression","process.env.PORT","convolution","unsigned","model-view-controllor"
 };
 
 int *wordLevel1Check;
@@ -72,7 +72,7 @@ void init(int level, int* time, int* location) {
 	else if (level == 3) {
 		*time = 100;
 		*location = 0;
-		wordLevel3Check = (int*)calloc(20, sizeof(int));
+		wordLevel3Check = (int*)calloc(25, sizeof(int));
 	}
 }
 
@@ -86,6 +86,7 @@ void stringInit(char* str, int len) {
 
 void game(int isContinue) {
 	int level = 0, location = 0, stime = 0, equal = 0;
+
 	int state = 0;
 	int item = 0;
 	char nowText[100] = "";
@@ -117,21 +118,22 @@ void game(int isContinue) {
 		}
 		if (item >= 4) item = 0;
 		if (isFinish(location2score(level, location), stime)) {
+			location = getTotalLocation(level);
 			sprintf(nowText, "%d", makeFinishCode());
-			while (1)
-			{
-				stringInit(myText, 100);
-				inputText(myText, nowText, &stime, &location, level, 1,state,0);
-				equal = isTextEqual(myText, nowText);
-				if (equal == 1) break;
-			}
-			break;
+\
+			stringInit(myText, 100);
+			inputText(myText, nowText, &stime, &location, level, 1,state,0);
+			equal = isTextEqual(myText, nowText);
+			if (equal == 1)break;
+\
 		}
-		stringInit(myText, 100);
-		strcpy_s(nowText, 100, makeText(level));
-		inputText(myText, nowText, &stime, &location, level , 0,state,item);
-		equal = isTextEqual(myText, nowText);
-		processTurn(equal, level, &stime, &location,&state,item);
+		else {
+			stringInit(myText, 100);
+			strcpy_s(nowText, 100, makeText(level));
+			inputText(myText, nowText, &stime, &location, level, 0, state, item);
+			equal = isTextEqual(myText, nowText);
+			processTurn(equal, level, &stime, &location, &state, item);
+		}
 	}
 	next(level, equal);
 	
@@ -159,7 +161,7 @@ char* makeText(int level) {
 		break;
 	case 3:
 		do {
-			index = rand() % 20;
+			index = rand() % 25;
 		} while (wordLevel3Check[index] != 0);
 		wordLevel3Check[index] = 1;
 		text = wordLevel3[index];
@@ -254,7 +256,7 @@ void processTurn(int eql, int level,int* time, int* location,int* state, int ite
 		*state = 1;
 		wrong_sound();
 	}
-	if(*location < 0)
+	if(*location <= 0)
 		*location = 0;
 }
 

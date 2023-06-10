@@ -257,7 +257,7 @@ void showPerson(int e) {
 void showItem(int item) {
 	gotoxy(30, 3);
 	if (item == 1) printf("계단 빨리올라가기!");
-	else if (item == 2) printf("시간 뒤로가기!");
+	else if (item == 2 || item ==3) printf("시간 뒤로가기!");
 
 }
 
@@ -303,8 +303,8 @@ void showFinish(int isFinish) {
 	}
 	else {
 		printf("정상 출석 완료! 늦지않고 잘 도착했다!");
-		missionclear_sound();
 		showSmile(28, 2);
+		missionclear_sound();
 	}
 	gotoxy(8, 15);
 	printf("다시 들으러 가기");
@@ -312,8 +312,6 @@ void showFinish(int isFinish) {
 	printf("다음 수업 이동하기");
 	gotoxy(57, 15);
 	printf("이제 집에가기");
-	
-	Sleep(2000);
 }
 
 void showSmile(int x, int y) {
